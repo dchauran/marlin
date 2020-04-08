@@ -52,7 +52,7 @@
 //
 // Z Probe must be this pins
 //
-#define Z_MIN_PROBE_PIN    PC14
+#define Z_MIN_PROBE_PIN    PC12
 
 //
 // Filament Runout Sensor
