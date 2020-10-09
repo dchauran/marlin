@@ -10,9 +10,13 @@
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
-## Marlin 2.0
+## Marlin 2.0 Bugfix Branch
+
+__Not for production use. Use with caution!__
 
 Marlin 2.0 takes this popular RepRap firmware to the next level by adding support for much faster 32-bit and ARM-based boards while improving support for 8-bit AVR boards. Read about Marlin's decision to use a "Hardware Abstraction Layer" below.
+
+This branch is for patches to the latest 2.0.x release version. Periodically this branch will form the basis for the next minor 2.0.x release.
 
 Download earlier versions of Marlin on the [Releases page](https://github.com/MarlinFirmware/Marlin/releases).
 
@@ -101,26 +105,23 @@ Marlin 2.0 introduces a layer of abstraction so that all the existing high-level
 
 ## Submitting Patches
 
-## Marlin Support
+Proposed patches should be submitted as a Pull Request against the ([bugfix-2.0.x](https://github.com/MarlinFirmware/Marlin/tree/bugfix-2.0.x)) branch.
 
-For best results getting help with configuration and troubleshooting, please use the following resources:
+- This branch is for fixing bugs and integrating any new features for the duration of the Marlin 2.0.x life-cycle.
+- Follow the [Coding Standards](https://marlinfw.org/docs/development/coding_standards.html) to gain points with the maintainers.
+- Please submit your questions and concerns to the [Issue Queue](https://github.com/MarlinFirmware/Marlin/issues).
 
-- [Marlin Documentation](http://marlinfw.org) - Official Marlin documentation
-- [Marlin Discord](https://discord.gg/n5NJ59y) - Discuss issues with Marlin users and developers
-- Facebook Group ["Marlin Firmware"](https://www.facebook.com/groups/1049718498464482/)
-- RepRap.org [Marlin Forum](http://forums.reprap.org/list.php?415)
-- [Tom's 3D Forums](https://forum.toms3d.org/)
-- Facebook Group ["Marlin Firmware for 3D Printers"](https://www.facebook.com/groups/3Dtechtalk/)
-- [Marlin Configuration](https://www.youtube.com/results?search_query=marlin+configuration) on YouTube
+### [RepRap.org Wiki Page](https://reprap.org/wiki/Marlin)
 
 ## Credits
 
 The current Marlin dev team consists of:
 
- - Scott Lahteine [[@thinkyhead](https://github.com/thinkyhead)] - USA &nbsp; [Donate](http://www.thinkyhead.com/donate-to-marlin)
+ - Scott Lahteine [[@thinkyhead](https://github.com/thinkyhead)] - USA &nbsp; [Donate](https://www.thinkyhead.com/donate-to-marlin) / Flattr: [![Flattr Scott](https://api.flattr.com/button/flattr-badge-small.png)](https://flattr.com/submit/auto?user_id=thinkyhead&url=https://github.com/MarlinFirmware/Marlin&title=Marlin&language=&tags=github&category=software)
  - Roxanne Neufeld [[@Roxy-3D](https://github.com/Roxy-3D)] - USA
  - Chris Pepper [[@p3p](https://github.com/p3p)] - UK
  - Bob Kuhn [[@Bob-the-Kuhn](https://github.com/Bob-the-Kuhn)] - USA
+ - João Brazio [[@jbrazio](https://github.com/jbrazio)] - Portugal
  - Erik van der Zalm [[@ErikZalm](https://github.com/ErikZalm)] - Netherlands &nbsp; [![Flattr Erik](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=ErikZalm&url=https://github.com/MarlinFirmware/Marlin&title=Marlin&language=&tags=github&category=software)
 
 ## License

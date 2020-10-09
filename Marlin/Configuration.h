@@ -70,7 +70,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(AndersSahlman, QQ-S config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Derek Chauran, original QQ-S work by Anders Sahlman)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
