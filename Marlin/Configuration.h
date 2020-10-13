@@ -659,7 +659,7 @@
   // 19:16:27.995 > echo:; Endstop adjustment:
   // 19:16:28.006 > echo:  M666 X0.00 Y-0.37 Z-0.72
   // 19:16:28.006 > echo:; Delta settings: L<diagonal rod> R<radius> H<height> S<segments per sec> XYZ<tower angle trim> ABC<rod trim>
-  // 19:16:28.028 > echo:  M665 L280.00 R142.18 H358.44 S200.00 X0.10 Y-0.03 Z-0.08 A0.00 B0.00 C0.00
+  // 19:16:28.028 > echo:  M665 L280.00 R142.18 H358.44 S200.00 X0.20 Y-0.03 Z-0.08 A0.00 B0.00 C0.00
   // Distance between bed and nozzle Z home position
   #define DELTA_HEIGHT 378.94             // (mm) Get this value from G33 auto calibrate
 
@@ -818,7 +818,7 @@
 
 // delta speeds must be the same on xyz
 #define DEFAULT_XYZ_STEPS_PER_UNIT ((XYZ_FULL_STEPS_PER_ROTATION) * (XYZ_MICROSTEPS) / double(XYZ_BELT_PITCH) / double(XYZ_PULLEY_TEETH))
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { DEFAULT_XYZ_STEPS_PER_UNIT, DEFAULT_XYZ_STEPS_PER_UNIT, DEFAULT_XYZ_STEPS_PER_UNIT, 393 }  // default steps per unit
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { DEFAULT_XYZ_STEPS_PER_UNIT, DEFAULT_XYZ_STEPS_PER_UNIT, DEFAULT_XYZ_STEPS_PER_UNIT, 414 }  // default steps per unit
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1067,7 +1067,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 0
+#define PROBING_MARGIN 3
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_SPEED 6000
@@ -1119,7 +1119,7 @@
 #define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
-#define PAUSE_BEFORE_DEPLOY_STOW
+// #define PAUSE_BEFORE_DEPLOY_STOW
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
   //#define PAUSE_PROBE_DEPLOY_WHEN_TRIGGERED // For Manual Deploy Allenkey Probe
 #endif
