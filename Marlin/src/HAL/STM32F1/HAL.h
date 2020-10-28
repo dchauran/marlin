@@ -124,7 +124,7 @@ void HAL_idletask();
 #endif
 
 #ifndef digitalPinHasPWM
-  #define digitalPinHasPWM(P) (PIN_MAP[P].timer_device != nullptr)
+  #define digitalPinHasPWM(P) !!PIN_MAP[P].timer_device
   #define NO_COMPILE_TIME_PWM
 #endif
 
@@ -184,6 +184,8 @@ void HAL_clear_reset_source();
 
 // Reset reason
 uint8_t HAL_get_reset_source();
+
+inline void HAL_reboot() {}  // reboot the board or restart the bootloader
 
 void _delay_ms(const int delay);
 
