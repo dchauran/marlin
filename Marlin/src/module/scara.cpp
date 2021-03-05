@@ -33,48 +33,11 @@
 #include "planner.h"
 
 #if ENABLED(AXEL_TPARA)
-  // For homing, as in delta
-  #include "planner.h"
   #include "endstops.h"
-  #include "../lcd/marlinui.h"
   #include "../MarlinCore.h"
 #endif
 
-float delta_segments_per_second = TERN(AXEL_TPARA, TPARA_SEGMENTS_PER_SECOND, SCARA_SEGMENTS_PER_SECOND);
-
-void scara_set_axis_is_at_home(const AxisEnum axis) {
-  if (axis == Z_AXIS)
-    current_position.z = Z_HOME_POS;
-  else {
-    xyz_pos_t homeposition;
-    LOOP_XYZ(i) homeposition[i] = base_home_pos((AxisEnum)i);
-    #if ENABLED(MORGAN_SCARA)
-      // MORGAN_SCARA uses arm angles for AB home position
-      //DEBUG_ECHOLNPAIR("homeposition A:", homeposition.a, " B:", homeposition.b);
-      inverse_kinematics(homeposition);
-      forward_kinematics_SCARA(delta.a, delta.b);
-      current_position[axis] = cartes[axis];
-    #elif ENABLED(MP_SCARA)
-      // MP_SCARA uses a Cartesian XY home position
-      //DEBUG_ECHOPGM("homeposition");
-      //DEBUG_ECHOLNPAIR_P(SP_X_LBL, homeposition.x, SP_Y_LBL, homeposition.y);
-      delta.a = SCARA_OFFSET_THETA1;
-      delta.b = SCARA_OFFSET_THETA2;
-      forward_kinematics_SCARA(delta.a, delta.b);
-      current_position[axis] = cartes[axis];
-    #elif ENABLED(AXEL_TPARA)
-      //DEBUG_ECHOPGM("homeposition");
-      //DEBUG_ECHOLNPAIR_P(SP_X_LBL, homeposition.x, SP_Y_LBL, homeposition.y, SP_Z_LBL, homeposition.z);
-      inverse_kinematics(homeposition);
-      forward_kinematics_TPARA(delta.a, delta.b, delta.c);
-      current_position[axis] = cartes[axis];
-    #endif
-
-    //DEBUG_ECHOPGM("Cartesian");
-    //DEBUG_ECHOLNPAIR_P(SP_X_LBL, current_position.x, SP_Y_LBL, current_position.y);
-    update_software_endstops(axis);
-  }
-}
+float segments_per_second = TERN(AXEL_TPARA, TPARA_SEGMENTS_PER_SECOND, SCARA_SEGMENTS_PER_SECOND);
 
 #if EITHER(MORGAN_SCARA, MP_SCARA)
 
@@ -85,7 +48,7 @@ void scara_set_axis_is_at_home(const AxisEnum axis) {
    * Maths and first version by QHARLEY.
    * Integrated into Marlin and slightly restructured by Joachim Cerny.
    */
-  void forward_kinematics_SCARA(const float &a, const float &b) {
+  void forward_kinematics(const float &a, const float &b) {
     const float a_sin = sin(RADIANS(a)) * L1,
                 a_cos = cos(RADIANS(a)) * L1,
                 b_sin = sin(RADIANS(b + TERN0(MP_SCARA, a))) * L2,
@@ -105,6 +68,27 @@ void scara_set_axis_is_at_home(const AxisEnum axis) {
       );
       DEBUG_ECHOLNPAIR(" cartes (X,Y) = "(cartes.x, ", ", cartes.y, ")");
     //*/
+  }
+
+#endif
+
+#if ENABLED(MORGAN_SCARA)
+
+  void scara_set_axis_is_at_home(const AxisEnum axis) {
+    if (axis == Z_AXIS)
+      current_position.z = Z_HOME_POS;
+    else {
+      // MORGAN_SCARA uses a Cartesian XY home position
+      xyz_pos_t homeposition = { X_HOME_POS, Y_HOME_POS, Z_HOME_POS };
+      //DEBUG_ECHOLNPAIR_P(PSTR("homeposition X"), homeposition.x, SP_Y_LBL, homeposition.y);
+
+      delta = homeposition;
+      forward_kinematics(delta.a, delta.b);
+      current_position[axis] = cartes[axis];
+
+      //DEBUG_ECHOLNPAIR_P(PSTR("Cartesian X"), current_position.x, SP_Y_LBL, current_position.y);
+      update_software_endstops(axis);
+    }
   }
 
   /**
@@ -154,6 +138,29 @@ void scara_set_axis_is_at_home(const AxisEnum axis) {
 
 #elif ENABLED(MP_SCARA)
 
+  void scara_set_axis_is_at_home(const AxisEnum axis) {
+    if (axis == Z_AXIS)
+      current_position.z = Z_HOME_POS;
+    else {
+      // MP_SCARA uses arm angles for AB home position
+      #ifndef SCARA_OFFSET_THETA1
+        #define SCARA_OFFSET_THETA1  12 // degrees
+      #endif
+      #ifndef SCARA_OFFSET_THETA2
+        #define SCARA_OFFSET_THETA2 131 // degrees
+      #endif
+      ab_float_t homeposition = { SCARA_OFFSET_THETA1, SCARA_OFFSET_THETA2 };
+      //DEBUG_ECHOLNPAIR("homeposition A:", homeposition.a, " B:", homeposition.b);
+
+      inverse_kinematics(homeposition);
+      forward_kinematics(delta.a, delta.b);
+      current_position[axis] = cartes[axis];
+
+      //DEBUG_ECHOLNPAIR_P(PSTR("Cartesian X"), current_position.x, SP_Y_LBL, current_position.y);
+      update_software_endstops(axis);
+    }
+  }
+
   void inverse_kinematics(const xyz_pos_t &raw) {
     const float x = raw.x, y = raw.y, c = HYPOT(x, y),
                 THETA3 = ATAN2(y, x),
@@ -173,8 +180,24 @@ void scara_set_axis_is_at_home(const AxisEnum axis) {
 
   static constexpr xyz_pos_t robot_offset = { TPARA_OFFSET_X, TPARA_OFFSET_Y, TPARA_OFFSET_Z };
 
+  void scara_set_axis_is_at_home(const AxisEnum axis) {
+    if (axis == Z_AXIS)
+      current_position.z = Z_HOME_POS;
+    else {
+      xyz_pos_t homeposition = { X_HOME_POS, Y_HOME_POS, Z_HOME_POS };
+      //DEBUG_ECHOLNPAIR_P(PSTR("homeposition X"), homeposition.x, SP_Y_LBL, homeposition.y, SP_Z_LBL, homeposition.z);
+
+      inverse_kinematics(homeposition);
+      forward_kinematics(delta.a, delta.b, delta.c);
+      current_position[axis] = cartes[axis];
+
+      //DEBUG_ECHOLNPAIR_P(PSTR("Cartesian X"), current_position.x, SP_Y_LBL, current_position.y);
+      update_software_endstops(axis);
+    }
+  }
+
   // Convert ABC inputs in degrees to XYZ outputs in mm
-  void forward_kinematics_TPARA(const float &a, const float &b, const float &c) {
+  void forward_kinematics(const float &a, const float &b, const float &c) {
     const float w = c - b,
                 r = L1 * cos(RADIANS(b)) + L2 * sin(RADIANS(w - (90 - b))),
                 x = r  * cos(RADIANS(a)),
@@ -226,7 +249,6 @@ void scara_set_axis_is_at_home(const AxisEnum axis) {
     homeaxis(A_AXIS);
     homeaxis(C_AXIS);
     homeaxis(B_AXIS);
-
 
     // Set all carriages to their home positions
     // Do this here all at once for Delta, because
