@@ -125,6 +125,7 @@ tags
 # Workaround for Deviot+platformio quirks
 Marlin/lib
 Marlin/platformio.ini
+Marlin/platformio.ini
 Marlin/*/platformio.ini
 Marlin/*/*/platformio.ini
 Marlin/*/*/*/platformio.ini
@@ -147,6 +148,9 @@ Marlin/*/*/*/*/readme.txt
 
 # Secure Credentials
 Configuration_Secure.h
+
+# Marlin per-user configuration files.
+Marlin/Configuration_user.h
 
 # Visual Studio
 *.sln
