@@ -37,9 +37,6 @@
  */
 #define CONFIGURATION_H_VERSION 020008
 
-// Custom user configuration file. Executes after other configuration files.
-#define CUSTOM_CONFIGURATION_FILE Configuration_user.h
-
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
@@ -94,6 +91,9 @@
 
 // Show the bitmap in Marlin/_Statusscreen.h on the status screen.
 //#define CUSTOM_STATUS_SCREEN_IMAGE
+
+// Custom user configuration file. Executes after other configuration files.
+#define CUSTOM_CONFIGURATION_FILE Configuration_user.h
 
 // @section machine
 
