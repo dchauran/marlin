@@ -52,6 +52,12 @@
   #include HAL_PATH(../HAL, inc/Conditionals_LCD.h)
 #endif
 
+#ifdef CUSTOM_CONFIGURATION_FILE
+  #if __has_include(STRINGIFY(../../CUSTOM_CONFIGURATION_FILE))
+    #include STRINGIFY(../../CUSTOM_CONFIGURATION_FILE)
+  #endif
+#endif
+
 #include "../core/drivers.h"
 #include "../../Configuration_adv.h"
 
