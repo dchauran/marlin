@@ -64,3 +64,5 @@
 #undef INVERT_E0_DIR
 #define INVERT_Z_DIR false
 #define INVERT_E0_DIR false
+
+#define SHOW_ALL_FILES true

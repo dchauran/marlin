@@ -201,28 +201,32 @@ char *createFilename(char * const buffer, const dir_t &p) {
 bool CardReader::is_visible_entity(const dir_t &p OPTARG(CUSTOM_FIRMWARE_UPLOAD, const bool onlyBin/*=false*/)) {
   //uint8_t pn0 = p.name[0];
 
-  #if DISABLED(CUSTOM_FIRMWARE_UPLOAD)
-    constexpr bool onlyBin = false;
+  #if ENABLED(SHOW_ALL_FILES)
+    return true;
+  #else
+    #if DISABLED(CUSTOM_FIRMWARE_UPLOAD)
+      constexpr bool onlyBin = false;
+    #endif
+
+    if ( (p.attributes & DIR_ATT_HIDDEN)                  // Hidden by attribute
+      // When readDir() > 0 these must be false:
+      //|| pn0 == DIR_NAME_FREE || pn0 == DIR_NAME_DELETED  // Clear or Deleted entry
+      //|| pn0 == '.' || longFilename[0] == '.'             // Hidden file
+      //|| !DIR_IS_FILE_OR_SUBDIR(&p)                       // Not a File or Directory
+    ) return false;
+
+    flag.filenameIsDir = DIR_IS_SUBDIR(&p);               // We know it's a File or Folder
+    setBinFlag(p.name[8] == 'B' &&                        // List .bin files (a firmware file for flashing)
+               p.name[9] == 'I' &&
+               p.name[10]== 'N');
+
+    return (
+      flag.filenameIsDir                                  // All Directories are ok
+      || fileIsBinary()                                   // BIN files are accepted
+      || (!onlyBin && p.name[8] == 'G'
+                   && p.name[9] != '~')                   // Non-backup *.G* files are accepted
+    );
   #endif
-
-  if ( (p.attributes & DIR_ATT_HIDDEN)                  // Hidden by attribute
-    // When readDir() > 0 these must be false:
-    //|| pn0 == DIR_NAME_FREE || pn0 == DIR_NAME_DELETED  // Clear or Deleted entry
-    //|| pn0 == '.' || longFilename[0] == '.'             // Hidden file
-    //|| !DIR_IS_FILE_OR_SUBDIR(&p)                       // Not a File or Directory
-  ) return false;
-
-  flag.filenameIsDir = DIR_IS_SUBDIR(&p);               // We know it's a File or Folder
-  setBinFlag(p.name[8] == 'B' &&                        // List .bin files (a firmware file for flashing)
-             p.name[9] == 'I' &&
-             p.name[10]== 'N');
-
-  return (
-    flag.filenameIsDir                                  // All Directories are ok
-    || fileIsBinary()                                   // BIN files are accepted
-    || (!onlyBin && p.name[8] == 'G'
-                 && p.name[9] != '~')                   // Non-backup *.G* files are accepted
-  );
 }
 
 //
