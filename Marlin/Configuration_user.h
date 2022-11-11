@@ -38,7 +38,8 @@
 #define HEATER_0_MAXTEMP 305
 
 #undef  NOZZLE_TO_PROBE_OFFSET
-#define NOZZLE_TO_PROBE_OFFSET { -35.5, 0, -4.83 }
+//#define NOZZLE_TO_PROBE_OFFSET { -35.5, 0, -4.83 }
+#define NOZZLE_TO_PROBE_OFFSET { -31.9, -40.5, -4.8 }
 
 #define PREHEAT_4_LABEL       "PC"
 #define PREHEAT_4_TEMP_HOTEND 285
@@ -61,8 +62,24 @@
 #define E1_DRIVER_TYPE TMC2208_STANDALONE
 
 #undef INVERT_Z_DIR
-#undef INVERT_E0_DIR
 #define INVERT_Z_DIR false
-#define INVERT_E0_DIR false
+// #undef INVERT_E0_DIR
+// #define INVERT_E0_DIR true
 
 #define SHOW_ALL_FILES true
+
+
+// Sprite
+#undef DEFAULT_Kp
+#undef DEFAULT_Ki
+#undef DEFAULT_Kd
+#define DEFAULT_Kp 18.21
+#define DEFAULT_Ki 2.19
+#define DEFAULT_Kd 37.87
+#undef DEFAULT_AXIS_STEPS_PER_UNIT
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 424.9 }
+
+// #undef X_BED_SIZE
+// #undef Y_BED_SIZE
+// #define X_BED_SIZE 293
+// #define Y_BED_SIZE 285
