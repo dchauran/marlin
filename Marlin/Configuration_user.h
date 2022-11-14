@@ -35,11 +35,11 @@
 
 // Example:
 #undef HEATER_0_MAXTEMP
-#define HEATER_0_MAXTEMP 305
+#define HEATER_0_MAXTEMP 315
 
 #undef  NOZZLE_TO_PROBE_OFFSET
 //#define NOZZLE_TO_PROBE_OFFSET { -35.5, 0, -4.83 }
-#define NOZZLE_TO_PROBE_OFFSET { -31.9, -40.5, -4.8 }
+#define NOZZLE_TO_PROBE_OFFSET { -31.9, -40.5, -5.2 }
 
 #define PREHEAT_4_LABEL       "PC"
 #define PREHEAT_4_TEMP_HOTEND 285
