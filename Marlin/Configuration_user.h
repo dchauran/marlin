@@ -26,14 +26,17 @@
  *
  * Used to create per-user settings for a shared configuration. e.g. when
  * creating a standard config for a printer model, this allows the creator
- * to maintain a "safe" configuration, without maintaining a second config
- * that contains their deviations.
+ * to maintain a "stock" configuration, without maintaining a second config
+ * that contains their personal deviations.
  *
  * To change a value that was previously defined, you must #undef it first.
  *
  */
 
 // Example:
+#undef CUSTOM_MACHINE_NAME
+#define CUSTOM_MACHINE_NAME "Pyramid A1.1 - Custom"
+
 #undef HEATER_0_MAXTEMP
 #define HEATER_0_MAXTEMP 315
 
@@ -73,9 +76,9 @@
 #undef DEFAULT_Kp
 #undef DEFAULT_Ki
 #undef DEFAULT_Kd
-#define DEFAULT_Kp 18.21
-#define DEFAULT_Ki 2.19
-#define DEFAULT_Kd 37.87
+#define DEFAULT_Kp 19.25
+#define DEFAULT_Ki 2.13
+#define DEFAULT_Kd 43.51
 #undef DEFAULT_AXIS_STEPS_PER_UNIT
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 424.9 }
 
@@ -83,3 +86,4 @@
 // #undef Y_BED_SIZE
 // #define X_BED_SIZE 293
 // #define Y_BED_SIZE 285
+#define MAX_CYCLE_TIME_PID_AUTOTUNE 60L
