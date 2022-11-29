@@ -45,8 +45,8 @@
 #define NOZZLE_TO_PROBE_OFFSET { -31.9, -40.5, -5.2 }
 
 #define PREHEAT_4_LABEL       "PC"
-#define PREHEAT_4_TEMP_HOTEND 285
-#define PREHEAT_4_TEMP_BED    130
+#define PREHEAT_4_TEMP_HOTEND 290
+#define PREHEAT_4_TEMP_BED    120
 #define PREHEAT_4_TEMP_CHAMBER 35
 #define PREHEAT_4_FAN_SPEED     0 // Value from 0 to 255
 
@@ -76,9 +76,9 @@
 #undef DEFAULT_Kp
 #undef DEFAULT_Ki
 #undef DEFAULT_Kd
-#define DEFAULT_Kp 19.25
-#define DEFAULT_Ki 2.13
-#define DEFAULT_Kd 43.51
+#define DEFAULT_Kp 15.23
+#define DEFAULT_Ki 1.46
+#define DEFAULT_Kd 39.61
 #undef DEFAULT_AXIS_STEPS_PER_UNIT
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 424.9 }
 

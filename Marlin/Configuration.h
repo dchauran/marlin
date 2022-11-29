@@ -101,6 +101,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
+// MKS Wifi
 #define SERIAL_PORT 1
 
 /**
@@ -114,17 +115,19 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 250000
+#define BAUDRATE 115200
 
-//#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
+#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
+
+// USB
 #define SERIAL_PORT_2 3
-//#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
+#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
 /**
  * Select a third serial port on the board to use for communication with the host.
@@ -3139,7 +3142,7 @@
 //#define TFT_LVGL_UI
 
 #if ENABLED(TFT_LVGL_UI)
-  //#define MKS_WIFI_MODULE  // MKS WiFi module
+  #define MKS_WIFI_MODULE  // MKS WiFi module
 #endif
 
 /**
