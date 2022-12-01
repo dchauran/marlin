@@ -34,6 +34,7 @@
  */
 
 // Example:
+#undef SHOW_BOOTSCREEN
 #undef CUSTOM_MACHINE_NAME
 #define CUSTOM_MACHINE_NAME "Pyramid A1.1 - Custom"
 
