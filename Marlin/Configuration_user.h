@@ -39,7 +39,7 @@
 #define CUSTOM_MACHINE_NAME "Pyramid A1.1 - Custom"
 
 #undef HEATER_0_MAXTEMP
-#define HEATER_0_MAXTEMP 315
+#define HEATER_0_MAXTEMP 350
 
 #undef  NOZZLE_TO_PROBE_OFFSET
 //#define NOZZLE_TO_PROBE_OFFSET { -35.5, 0, -4.83 }
